@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#191d22">
+  <meta name="description" content="アニメの秒＋コマ表記と総コマ数を、24fpsで相互変換。2+12Frは60Fr。">
+  <title>コマ換算</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23191d22'/%3E%3Cpath d='M8 16h16M16 8v16' stroke='%23d5f56a' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main class="converter" aria-labelledby="title">
+    <header><h1 id="title">コマ換算<span class="title-mark" aria-hidden="true">＋</span></h1><span class="rate">24 fps</span></header>
+    <div class="fields">
+      <div class="field">
+        <div class="field-label" id="timing-label">秒＋コマ</div>
+        <div class="timing-fields" role="group" aria-labelledby="timing-label">
+          <div class="input-wrap"><input id="seconds" aria-label="秒" type="text" inputmode="numeric" value="2" placeholder="0" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="hint status"><span aria-hidden="true">秒</span></div>
+          <span class="plus" aria-hidden="true">＋</span>
+          <div class="input-wrap"><input id="remainder" aria-label="コマ" type="text" inputmode="numeric" value="12" placeholder="0" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="hint status"><span aria-hidden="true">Fr</span></div>
+        </div>
+      </div>
+      <div class="equals" aria-hidden="true">＝</div>
+      <div class="field">
+        <label for="frames">総コマ数</label>
+        <div class="input-wrap"><input id="frames" type="text" inputmode="numeric" value="60" placeholder="60" autocomplete="off" spellcheck="false" maxlength="48" aria-describedby="hint status"><span aria-hidden="true">Fr</span></div>
+      </div>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite">2 × 24 + 12 = 60Fr</p>
+    <footer><p id="hint">どちらの欄からも入力できます。</p><span>1秒 = 24コマ</span></footer>
+  </main>
+</body>
+</html>

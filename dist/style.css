@@ -1,0 +1,26 @@
+:root{color-scheme:dark;font-family:"Segoe UI","Yu Gothic UI","Meiryo",sans-serif;color:#f2f4f5;background:#191d22;font-synthesis:none}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px}
+.converter{width:min(100%,420px);background:#242a31;border:1px solid #3a424b;border-radius:22px;padding:28px;box-shadow:0 20px 80px #0003}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;gap:16px}
+h1{font-size:1.25rem;letter-spacing:.06em;margin:0;font-weight:650;display:flex;align-items:center;gap:8px}
+.title-mark{color:#d5f56a;font-weight:400;font-size:1.5rem;line-height:1}
+.rate{font-size:.875rem;font-weight:650;color:#d5f56a;border:1px solid #d5f56a40;border-radius:6px;padding:4px 8px;white-space:nowrap}
+label,.field-label{display:block;color:#bdc5cc;font-size:.875rem;margin:0 0 10px 2px}
+.timing-fields{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}
+.timing-fields .input-wrap{padding-inline:12px;gap:4px}
+.plus{color:#969fa9;font-size:1rem}
+.input-wrap{display:flex;align-items:center;gap:8px;border:1px solid #48515c;border-radius:10px;padding:15px 18px;background:#191e24;transition:border-color .15s,box-shadow .15s}
+.input-wrap:focus-within{border-color:#d5f56a;box-shadow:0 0 0 3px #d5f56a16}
+input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#f2f4f5;font-family:"Consolas","SFMono-Regular",monospace;font-size:2rem;line-height:1.25;font-variant-numeric:tabular-nums;padding:0;border-radius:0}
+input::placeholder{color:#646d78}
+.input-wrap>span{color:#969fa9;font-size:1rem;align-self:center;flex-shrink:0}
+.input-wrap:has([aria-invalid="true"]){border-color:#f7a895}
+.equals{text-align:center;color:#d5f56a;font-size:1.4rem;padding:10px 0 12px;line-height:1}
+.status{min-height:1.5em;margin:20px 0 24px;color:#d5f56a;font-family:"Consolas","Yu Gothic UI",monospace;font-size:.875rem;overflow-wrap:anywhere}
+.status.error{color:#f7a895;font-family:inherit}
+footer{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:space-between;border-top:1px solid #3a424b;padding-top:16px;color:#a6afb9;font-size:.75rem;line-height:1.6}
+footer p{margin:0}
+footer span{white-space:nowrap}
+@media(max-width:380px){body{padding:16px}.converter{padding:22px}input{font-size:1.75rem}header{margin-bottom:24px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
