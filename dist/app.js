@@ -26,7 +26,7 @@
 
   function nextStep(button, value) {
     if (value === null) return -1n;
-    if (button.dataset.target === 'remainder' && value === 0n && button.dataset.delta === '-1') return 23n;
+    if (button.dataset.target === 'remainder') return (value + BigInt(button.dataset.delta) + 24n) % 24n;
     return value + BigInt(button.dataset.delta);
   }
 
@@ -39,6 +39,7 @@
       if (!match) throw new Error('「2+12」の形で入力してください。');
       const seconds = BigInt(match[1]);
       const remainder = BigInt(match[2]);
+      if (remainder > 23n) throw new Error('コマは0〜23で入力してください。');
       const total = seconds * 24n + remainder;
       return { timing: `${total / 24n}+${total % 24n}`, frames: String(total), formula: `${seconds} × 24 + ${remainder} = ${total}Fr` };
     }
@@ -94,6 +95,12 @@
     input.addEventListener('input', () => {
       const value = digits(input.value);
       if (!/^\d*$/.test(value)) { input.value = input.dataset.valid; return; }
+      if (input === remainderInput && value !== '' && BigInt(value) > 23n) {
+        input.value = input.dataset.valid;
+        status.textContent = 'コマは0〜23で入力してください。';
+        status.classList.add('error');
+        return;
+      }
       input.value = value;
       input.dataset.valid = value;
       update('timing');
