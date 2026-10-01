@@ -5,6 +5,23 @@
   const frames = document.getElementById('frames');
   const status = document.getElementById('status');
   const clean = value => value.normalize('NFKC').replace(/\s/g, '').replace(/fr$/i, '');
+  const stepButtons = [...document.querySelectorAll('.stepper button')];
+
+  function stepTotal(target) {
+    try {
+      const value = target === 'frames' ? frames.value || '0' : `${secondsInput.value || '0'}+${remainderInput.value || '0'}`;
+      return BigInt(convert(value, target === 'frames' ? 'frames' : 'timing').frames);
+    } catch { return null; }
+  }
+
+  function refreshSteppers() {
+    for (const button of stepButtons) {
+      const total = stepTotal(button.dataset.target);
+      const amount = button.dataset.target === 'seconds' ? 24n : 1n;
+      const next = total === null ? -1n : total + BigInt(button.dataset.delta) * amount;
+      button.disabled = next < 0n || String(next).length > 48;
+    }
+  }
 
   function convert(value, direction) {
     const text = clean(value);
@@ -41,6 +58,7 @@
         remainderInput.dataset.valid = remainderInput.value;
       }
       status.textContent = result ? result.formula : '';
+      refreshSteppers();
       return result;
     } catch (error) {
       if (direction === 'timing') frames.value = '';
@@ -53,6 +71,7 @@
       status.textContent = error.message;
       status.classList.add('error');
       if (direction === 'frames') frames.setAttribute('aria-invalid', 'true');
+      refreshSteppers();
       return null;
     }
   }
@@ -77,6 +96,18 @@
   for (const input of [secondsInput, remainderInput, frames]) {
     input.addEventListener('focus', () => input.select());
   }
+  for (const button of stepButtons) {
+    button.addEventListener('click', () => {
+      const total = stepTotal(button.dataset.target);
+      if (total === null) return;
+      const amount = button.dataset.target === 'seconds' ? 24n : 1n;
+      const next = total + BigInt(button.dataset.delta) * amount;
+      if (next < 0n || String(next).length > 48) return;
+      frames.value = String(next);
+      update('frames');
+    });
+  }
+  refreshSteppers();
 
   const context = document.modelContext;
   if (context?.registerTool) {
@@ -101,6 +132,7 @@
           secondsInput.removeAttribute('aria-invalid');
           remainderInput.removeAttribute('aria-invalid');
           frames.removeAttribute('aria-invalid');
+          refreshSteppers();
           return { timing: result.timing + 'Fr', frames: result.frames + 'Fr', fps: 24 };
         }
       }, { signal: lifecycle.signal })).catch(() => {});

@@ -17,15 +17,15 @@
       <div class="field">
         <div class="field-label" id="timing-label">秒＋コマ</div>
         <div class="timing-fields" role="group" aria-labelledby="timing-label">
-          <div class="input-wrap"><input id="seconds" aria-label="秒" type="text" inputmode="numeric" value="2" placeholder="0" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="hint status"><span aria-hidden="true">秒</span></div>
+          <div class="input-wrap"><input id="seconds" aria-label="秒" type="text" inputmode="numeric" value="2" placeholder="0" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="hint status"><span aria-hidden="true">秒</span><div class="stepper"><button type="button" data-target="seconds" data-delta="1" aria-label="秒を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button><button type="button" data-target="seconds" data-delta="-1" aria-label="秒を1減らす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 8 5 5 5-5"/></svg></button></div></div>
           <span class="plus" aria-hidden="true">＋</span>
-          <div class="input-wrap"><input id="remainder" aria-label="コマ" type="text" inputmode="numeric" value="12" placeholder="0" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="hint status"><span aria-hidden="true">Fr</span></div>
+          <div class="input-wrap"><input id="remainder" aria-label="コマ" type="text" inputmode="numeric" value="12" placeholder="0" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="hint status"><span aria-hidden="true">Fr</span><div class="stepper"><button type="button" data-target="remainder" data-delta="1" aria-label="コマを1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button><button type="button" data-target="remainder" data-delta="-1" aria-label="コマを1減らす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 8 5 5 5-5"/></svg></button></div></div>
         </div>
       </div>
       <div class="equals" aria-hidden="true">＝</div>
       <div class="field">
         <label for="frames">総コマ数</label>
-        <div class="input-wrap"><input id="frames" type="text" inputmode="numeric" value="60" placeholder="60" autocomplete="off" spellcheck="false" maxlength="48" aria-describedby="hint status"><span aria-hidden="true">Fr</span></div>
+        <div class="input-wrap"><input id="frames" type="text" inputmode="numeric" value="60" placeholder="60" autocomplete="off" spellcheck="false" maxlength="48" aria-describedby="hint status"><span aria-hidden="true">Fr</span><div class="stepper"><button type="button" data-target="frames" data-delta="1" aria-label="総コマ数を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 12 5-5 5 5"/></svg></button><button type="button" data-target="frames" data-delta="-1" aria-label="総コマ数を1減らす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 8 5 5 5-5"/></svg></button></div></div>
       </div>
     </div>
     <p id="status" class="status" role="status" aria-live="polite">2 × 24 + 12 = 60Fr</p>
