@@ -7,19 +7,20 @@
   const clean = value => value.normalize('NFKC').replace(/\s/g, '').replace(/fr$/i, '');
   const stepButtons = [...document.querySelectorAll('.stepper button')];
 
-  function stepTotal(target) {
+  function stepValue(target) {
     try {
-      const value = target === 'frames' ? frames.value || '0' : `${secondsInput.value || '0'}+${remainderInput.value || '0'}`;
-      return BigInt(convert(value, target === 'frames' ? 'frames' : 'timing').frames);
+      const input = document.getElementById(target);
+      const value = clean(input.value) || '0';
+      return /^\d+$/.test(value) ? BigInt(value) : null;
     } catch { return null; }
   }
 
   function refreshSteppers() {
     for (const button of stepButtons) {
-      const total = stepTotal(button.dataset.target);
-      const amount = button.dataset.target === 'seconds' ? 24n : 1n;
-      const next = total === null ? -1n : total + BigInt(button.dataset.delta) * amount;
-      button.disabled = next < 0n || String(next).length > 48;
+      const input = document.getElementById(button.dataset.target);
+      const value = stepValue(button.dataset.target);
+      const next = value === null ? -1n : value + BigInt(button.dataset.delta);
+      button.disabled = next < 0n || String(next).length > input.maxLength;
     }
   }
 
@@ -98,13 +99,14 @@
   }
   for (const button of stepButtons) {
     button.addEventListener('click', () => {
-      const total = stepTotal(button.dataset.target);
-      if (total === null) return;
-      const amount = button.dataset.target === 'seconds' ? 24n : 1n;
-      const next = total + BigInt(button.dataset.delta) * amount;
-      if (next < 0n || String(next).length > 48) return;
-      frames.value = String(next);
-      update('frames');
+      const input = document.getElementById(button.dataset.target);
+      const value = stepValue(button.dataset.target);
+      if (value === null) return;
+      const next = value + BigInt(button.dataset.delta);
+      if (next < 0n || String(next).length > input.maxLength) return;
+      input.value = String(next);
+      input.dataset.valid = input.value;
+      update(button.dataset.target === 'frames' ? 'frames' : 'timing');
     });
   }
   refreshSteppers();
