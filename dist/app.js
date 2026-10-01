@@ -19,9 +19,15 @@
     for (const button of stepButtons) {
       const input = document.getElementById(button.dataset.target);
       const value = stepValue(button.dataset.target);
-      const next = value === null ? -1n : value + BigInt(button.dataset.delta);
+      const next = nextStep(button, value);
       button.disabled = next < 0n || String(next).length > input.maxLength;
     }
+  }
+
+  function nextStep(button, value) {
+    if (value === null) return -1n;
+    if (button.dataset.target === 'remainder' && value === 0n && button.dataset.delta === '-1') return 23n;
+    return value + BigInt(button.dataset.delta);
   }
 
   function convert(value, direction) {
@@ -102,7 +108,7 @@
       const input = document.getElementById(button.dataset.target);
       const value = stepValue(button.dataset.target);
       if (value === null) return;
-      const next = value + BigInt(button.dataset.delta);
+      const next = nextStep(button, value);
       if (next < 0n || String(next).length > input.maxLength) return;
       input.value = String(next);
       input.dataset.valid = input.value;
